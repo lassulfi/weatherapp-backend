@@ -1,6 +1,8 @@
 package com.weatherapp.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +14,7 @@ public class City implements Serializable {
 	@Id
 	private String id;
 	private String name;
-	private Forecast forecast;
+	private List<Forecast> forecast = new ArrayList<>();
 	
 	public City() {
 		super();
@@ -40,11 +42,11 @@ public class City implements Serializable {
 		this.name = name;
 	}
 
-	public Forecast getForecast() {
+	public List<Forecast> getForecast() {
 		return forecast;
 	}
 
-	public void setForecast(Forecast forecast) {
+	public void setForecast(List<Forecast> forecast) {
 		this.forecast = forecast;
 	}
 

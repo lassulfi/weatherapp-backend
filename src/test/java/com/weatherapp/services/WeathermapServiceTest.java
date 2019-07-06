@@ -2,6 +2,8 @@ package com.weatherapp.services;
 
 import static org.hamcrest.Matchers.is;
 
+import java.util.List;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,18 +28,16 @@ public class WeathermapServiceTest {
 	public void mustReturnTheForecastForAValidCity() throws WeathermapException {
 		String city = "London";
 		
-		Forecast result = weathermapService.getWeatherForecast(city);
+		List<Forecast> result = weathermapService.getWeatherForecast(city, 5);
 		
-		Assert.assertThat(result.getWeather(), Matchers.notNullValue());
+		Assert.assertThat(result, Matchers.notNullValue());
 	}
 	
 	@Test(expected = WeathermapException.class)
 	public void mustReturnErrorIfCityIsNotValid() throws WeathermapException {
 		String city = "Lodona";
 		
-		Forecast result = weathermapService.getWeatherForecast(city);
-		
-		System.out.println(result);
+		List<Forecast> result = weathermapService.getWeatherForecast(city, 5);
 	}
 	
 	@Test

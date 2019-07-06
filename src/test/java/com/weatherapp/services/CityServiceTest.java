@@ -57,5 +57,4 @@ public class CityServiceTest {
 		
 		Assert.assertThat(obj, notNullValue());
 	}
-	
 }

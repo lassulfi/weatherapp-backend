@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.weatherapp.domain.City;
+import com.weatherapp.dto.CityDTO;
 import com.weatherapp.repositories.CityRepository;
 import com.weatherapp.services.exceptions.ObjectNotFoundException;
 import com.weatherapp.services.exceptions.WeathermapException;
@@ -19,6 +21,9 @@ public class CityService {
 	
 	@Autowired
 	private CityRepository cityRepository;
+	
+	@Value("${default.number.days}")
+	private Integer numberOfDays;
 	
 	/**
 	 * Find all cities in the database
@@ -40,7 +45,7 @@ public class CityService {
 		if(city.isPresent()) {
 			try {
 				City obj = city.get();
-				obj.setForecast(this.weatherService.getWeatherForecast(obj.getName()));
+				obj.setForecast(this.weatherService.getWeatherForecast(obj.getName(), numberOfDays));
 				
 				return obj;
 			} catch (WeathermapException e) {
@@ -77,5 +82,14 @@ public class CityService {
 		} else {
 			throw new ObjectNotFoundException("Objeto não encontrado. id: " + id);
 		}
+	}
+	
+	/**
+	 * Return a City object from a CityDTO object
+	 * @param objDTO an instance of classe CityDTO
+	 * @return City object
+	 */
+	public City fromDTO(CityDTO objDTO) {
+		return new City(objDTO.getId(), objDTO.getName());
 	}
 }
