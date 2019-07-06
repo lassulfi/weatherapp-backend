@@ -1,5 +1,7 @@
 package com.weatherapp.services;
 
+import static org.hamcrest.Matchers.is;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,5 +38,23 @@ public class WeathermapServiceTest {
 		Forecast result = weathermapService.getWeatherForecast(city);
 		
 		System.out.println(result);
+	}
+	
+	@Test
+	public void mustReturnTrueIfCityIsValid() {
+		String validName = "London";
+		
+		boolean result = weathermapService.isCityValid(validName);
+		
+		Assert.assertThat(result, is(true));
+	}
+	
+	@Test
+	public void mustReturnFalseIfCityIsInvalid() {
+		String invalidName = "Londona";
+		
+		boolean result = weathermapService.isCityValid(invalidName);
+		
+		Assert.assertThat(result, is(false));
 	}
 }

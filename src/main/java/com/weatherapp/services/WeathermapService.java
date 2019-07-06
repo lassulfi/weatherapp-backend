@@ -20,7 +20,7 @@ public class WeathermapService {
 	private String appId;
 	
 	private String getApiAddress(String cityName) {
-		return "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + appId;
+		return "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + appId + "&lang=pt";
 	}
 	
 	public Forecast getWeatherForecast(String cityName) throws WeathermapException {
@@ -33,6 +33,17 @@ public class WeathermapService {
 			return forecast;
 		} catch (HttpClientErrorException e) {
 			throw new WeathermapException("Não foi possível encontrar cidade com nome " + cityName);
+		}
+	}
+	
+	public boolean isCityValid(String name) {
+		RestTemplate restTemplate = new RestTemplate();
+		try {
+			restTemplate.getForObject(this.getApiAddress(name), Forecast.class);
+			
+			return true;
+		} catch (HttpClientErrorException e) {
+			return false;
 		}
 	}
 }

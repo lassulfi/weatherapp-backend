@@ -7,6 +7,4 @@ import com.weatherapp.domain.City;
 
 @Repository
 public interface CityRepository extends MongoRepository<City, String>{
-
-	City findByName(String name);
 }

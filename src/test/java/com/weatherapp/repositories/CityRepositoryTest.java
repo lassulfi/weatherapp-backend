@@ -1,5 +1,7 @@
 package com.weatherapp.repositories;
 
+import java.util.Optional;
+
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Assert;
@@ -22,11 +24,13 @@ public class CityRepositoryTest {
 	private CityRepository repository;
 	
 	private static final String NAME = "London";
+	private static final String ID = "zdO1jU0ARs";
 	
 	@Before
 	public void setup() {
 		City city = new City();
 		city.setName(NAME);
+		city.setId(ID);
 		
 		this.repository.save(city);
 	}
@@ -38,9 +42,9 @@ public class CityRepositoryTest {
 	
 	@Test
 	public void testFindByName() {
-		City city = repository.findByName(NAME);
+		Optional<City> city = repository.findById(ID);
 		
-		Assert.assertThat(city, Matchers.notNullValue());
+		Assert.assertThat(city.get(), Matchers.notNullValue());
 	}
 
 }
