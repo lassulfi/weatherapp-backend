@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.weatherapp.domain.Forecast;
+import com.weatherapp.services.exceptions.WeathermapException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,13 +19,20 @@ public class WeathermapServiceTest {
 	private WeathermapService weathermapService;
 	
 	@Test
-	public void mustReturnTheForecastForAValidCity() {
+	public void mustReturnTheForecastForAValidCity() throws WeathermapException {
 		String city = "London";
 		
 		Forecast result = weathermapService.getWeatherForecast(city);
 		
-		System.out.println(result);
-		
 		Assert.assertThat(result.getWeather(), Matchers.notNullValue());
+	}
+	
+	@Test(expected = WeathermapException.class)
+	public void mustReturnErrorIfCityIsNotValid() throws WeathermapException {
+		String city = "Lodona";
+		
+		Forecast result = weathermapService.getWeatherForecast(city);
+		
+		System.out.println(result);
 	}
 }
