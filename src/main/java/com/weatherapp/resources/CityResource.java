@@ -53,8 +53,8 @@ public class CityResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "{/id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteById(String id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteById(@PathVariable String id) {
 		this.cityService.delete(id);
 		
 		return ResponseEntity.noContent().build();

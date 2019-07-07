@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Forecast {
 
 	private List<Weather> weather;
+	private String dt_txt;
 	
 	public Forecast() {
 		
@@ -21,11 +22,21 @@ public class Forecast {
 		this.weather = weather;
 	}
 
+	public String getDt_txt() {
+		return dt_txt;
+	}
+
+	public void setDt_txt(String dt_txt) {
+		this.dt_txt = dt_txt;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Forecast [list=");
 		builder.append(weather);
+		builder.append(" date=");
+		builder.append(dt_txt);
 		builder.append("]");
 		return builder.toString();
 	}

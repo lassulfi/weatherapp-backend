@@ -1,7 +1,7 @@
 package com.weatherapp.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,22 +27,14 @@ public class WeathermapService {
 		return "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + appId + "&lang=pt";
 	}
 	
-	public List<Forecast> getWeatherForecast(String cityName, int numberOfDays) throws WeathermapException {
+	public List<Forecast> getWeatherForecast(String cityName) throws WeathermapException {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
 			WeathermapResult result = restTemplate.getForObject(this.getApiAddress(cityName), WeathermapResult.class);
-			
-			List<Forecast> fiveDayResult = new ArrayList<>();
-			if(numberOfDays < result.getList().size()) {
-				for(int i = 0; i < numberOfDays; i++) {
-					fiveDayResult.add(result.getList().get(i));
-				}
-				return fiveDayResult;
-			} else {
-				return result.getList();
-			}
+
+			return result.getList().stream().filter(res -> res.getDt_txt().contains("00:00:00")).collect(Collectors.toList());
 			
 		} catch (HttpClientErrorException e) {
 			throw new WeathermapException("Não foi possível encontrar cidade com nome " + cityName);
