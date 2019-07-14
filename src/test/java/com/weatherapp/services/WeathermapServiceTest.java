@@ -28,7 +28,7 @@ public class WeathermapServiceTest {
 	public void mustReturnTheForecastForAValidCity() throws WeathermapException {
 		String city = "London";
 		
-		List<Forecast> result = weathermapService.getWeatherForecast(city, 5);
+		List<Forecast> result = weathermapService.getWeatherForecast(city);
 		
 		Assert.assertThat(result, Matchers.notNullValue());
 	}
@@ -37,7 +37,7 @@ public class WeathermapServiceTest {
 	public void mustReturnErrorIfCityIsNotValid() throws WeathermapException {
 		String city = "Lodona";
 		
-		List<Forecast> result = weathermapService.getWeatherForecast(city, 5);
+		List<Forecast> result = weathermapService.getWeatherForecast(city);
 	}
 	
 	@Test

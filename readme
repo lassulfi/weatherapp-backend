@@ -1,0 +1,77 @@
+Aplicação WeatherApp
+
+----------
+Descrição:
+----------
+	Obtenha a previsão do tempo para os próximos 5 dias das suas cidades favoritas.
+
+--------------
+Requirimentos:
+--------------
+	- Backend:
+	----------
+		JDK 1.8
+		JRE 1.8
+		Spring Boot 2.1.6
+		Apache Maven 3.6.0
+		MongoDB 4.0.9
+	----------
+	- Frontend
+	----------
+		NodeJS 10.16.0
+		NPM 6.9.0
+		Angular 8.1.0
+	----------
+
+-------------------------
+Arquitetura da Aplicação
+-------------------------
+  A aplicação utiliza os padrões MCV tanto no server side quanto no client side.
+  No server side a camada de domínio é responsável pelas entidades armazenadas no 
+  banco de dados, que para esta aplicação utiliza banco de dados orientado a documentos
+  (MongoDB).
+  O acesso a camada de domínio é feita através da camada de acesso aos dados, que nesta
+  aplicação é a camada Respository. Esta camada implementa das interfaces com as operações CRUD.
+  A camada de serviço é a camada respnsável pela comunicação entre a camada de visualização, 
+  que para a aplicação são os controladores REST e a camada de acesso aos dados. Essa camada 
+  implementa as operações de CRUD da camada de acesso aos dados e as regras de negócio da aplicação.
+  Por fim os controladores REST são a camada responsável por disponibilizar os end-points da API REST, 
+  que são consumidos pela aplicação frontend.
+  
+  O client side utiliza a mesma arquitetura da aplicação backend, sendo nesta aplicação a camada de 
+  domínio responsável por consumir os endpoints disponibilizados pela API REST, através do módulo http do 
+  framework Angular. A camada de serviços é responsável por obter os dados disponsibilizados pela 
+  camada de domínio, aplicando as regras de negócio válidas a aplicação frontend, por fim a camada de 
+  visualização é responsável por exibir os dados ao usuário.
+  
+  -------------------------------------
+  Instruções para instalação e execução   
+ --------------------------------------
+ 
+ 	-------
+ 	Backend
+	-------
+		1. Clonar a aplicação disponível em https://github.com/lassulfi/weatherapp-backend.git
+		2. Acessar a pasta da aplicação e executar os seguintes comandos
+			mvn clean install
+			mvn spring-boot:run
+		
+		Para verificar se a aplicação está rodando, abra o seu nagevador e acesse a página
+		http://localhost:8081/. Se a aplicação estiver rodando a resposta do navegador será a
+		seguinte:
+			Whitelabel Error Page
+			This application has no explicit mapping for /error, so you are seeing this as a fallback.
+			
+			Sun Jul 14 15:53:37 BRT 2019
+			There was an unexpected error (type=Not Found, status=404).
+			No message available
+	--------
+	Frontend
+	--------
+		1. Clonar a aplicaçao disponível em https://github.com/lassulfi/weatherapp-frontend.git
+		2. Acessar a pasta da aplicação e instalar as dependências através do seguinte comando:
+			npm install
+		3. Inicie a aplicação executando o comando ng serve
+		4. Acesse o endereço informado pelo navegador
+			
+	
